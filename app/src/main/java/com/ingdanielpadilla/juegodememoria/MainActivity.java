@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
             }else{
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                     b.setText("Logo");
                     bf.setText("Logo");
                 } catch (InterruptedException e) {
