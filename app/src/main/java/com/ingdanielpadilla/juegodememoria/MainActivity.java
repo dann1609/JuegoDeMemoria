@@ -16,13 +16,15 @@ public class MainActivity extends AppCompatActivity {
     Integer anterior=0;
     Integer codigo=0;
     Integer puntos=0;
+    Integer wait=0;
     Button b;
     Button bf;
+    TextView t1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        anterior=0;
+        t1=(TextView) findViewById(R.id.t1);
         Button b1=(Button) findViewById(R.id.b1);
         Button b2=(Button) findViewById(R.id.b2);
         Button b3=(Button) findViewById(R.id.b3);
@@ -92,12 +94,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void VolteaBoton(View view) {
 
-
-        b=(Button)view;
-        codigo = b.getId();
-        Integer tag=(Integer)b.getTag();
-        b.setText(tag.toString());
-        if (!codigo.equals(anterior)){
+        if (wait==0){
+            b = (Button) view;
+            codigo = b.getId();
+        }
+        if (!codigo.equals(anterior)&& wait==0){
+            Integer tag=(Integer)b.getTag();
+            b.setText(tag.toString());
             if(anterior==0){
             anterior=codigo;
             }else{
@@ -107,16 +110,19 @@ public class MainActivity extends AppCompatActivity {
                     b.setEnabled(false);
                     bf.setEnabled(false);
                     puntos=puntos+1;
-                    TextView t1=(TextView) findViewById(R.id.t1);
+
                     t1.setText("Jugando Parejas encontradas:"+puntos);
 
                 }else{
                     Toast.makeText(this,"No No No..",Toast.LENGTH_SHORT).show();
+                    t1.setText(getString(R.string.onplayintext)+puntos);
+                    wait=1;
                     Handler del= new Handler();
                         del.postDelayed(new Runnable() {
                             public void run() {
                                 b.setText("Logo");
                                 bf.setText("Logo");
+                                wait=0;
                             }
                         }, 2000);
 
