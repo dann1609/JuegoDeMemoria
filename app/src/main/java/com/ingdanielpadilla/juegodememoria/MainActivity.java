@@ -14,6 +14,7 @@ import android.os.Handler;
 public class MainActivity extends AppCompatActivity {
 
     Integer anterior=0;
+    Integer codigo=0;
     Integer puntos=0;
     Button b;
     Button bf;
@@ -93,33 +94,36 @@ public class MainActivity extends AppCompatActivity {
 
 
         b=(Button)view;
-        Integer codigo=b.getId();
+        codigo = b.getId();
         Integer tag=(Integer)b.getTag();
         b.setText(tag.toString());
-        if(anterior==0){
+        if (!codigo.equals(anterior)){
+            if(anterior==0){
             anterior=codigo;
-        }else{
-            bf=(Button) findViewById(anterior);
-            if (tag==(Integer)bf.getTag()){
-                Toast.makeText(this,"Exelente",Toast.LENGTH_SHORT).show();
-                b.setEnabled(false);
-                bf.setEnabled(false);
-                puntos=puntos+1;
-                TextView t1=(TextView) findViewById(R.id.t1);
-                t1.setText("Jugando Puntos:"+puntos);
-
             }else{
-                Handler del= new Handler();
-                    del.postDelayed(new Runnable() {
-                        public void run() {
-                            b.setText("Logo");
-                            bf.setText("Logo");
-                        }
-                    }, 1000);
+                bf=(Button) findViewById(anterior);
+                if (tag==(Integer)bf.getTag()){
+                    Toast.makeText(this,"Exelente",Toast.LENGTH_SHORT).show();
+                    b.setEnabled(false);
+                    bf.setEnabled(false);
+                    puntos=puntos+1;
+                    TextView t1=(TextView) findViewById(R.id.t1);
+                    t1.setText("Jugando Parejas encontradas:"+puntos);
+
+                }else{
+                    Toast.makeText(this,"No No No..",Toast.LENGTH_SHORT).show();
+                    Handler del= new Handler();
+                        del.postDelayed(new Runnable() {
+                            public void run() {
+                                b.setText("Logo");
+                                bf.setText("Logo");
+                            }
+                        }, 2000);
 
 
+                }
+                anterior=0;
             }
-            anterior=0;
         }
 
 
