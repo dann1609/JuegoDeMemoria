@@ -8,13 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
 
-import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
     Integer anterior=0;
     Integer puntos=0;
+    Button b;
+    Button bf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
     public void VolteaBoton(View view) {
 
 
-        Button b=(Button)view;
+        b=(Button)view;
         Integer codigo=b.getId();
         Integer tag=(Integer)b.getTag();
         b.setText(tag.toString());
         if(anterior==0){
             anterior=codigo;
         }else{
-            Button bf=(Button) findViewById(anterior);
+            bf=(Button) findViewById(anterior);
             if (tag==(Integer)bf.getTag()){
                 Toast.makeText(this,"Exelente",Toast.LENGTH_SHORT).show();
                 b.setEnabled(false);
@@ -107,13 +109,14 @@ public class MainActivity extends AppCompatActivity {
                 t1.setText("Jugando Puntos:"+puntos);
 
             }else{
-                try {
-                    Thread.sleep(3000);
-                    b.setText("Logo");
-                    bf.setText("Logo");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Handler del= new Handler();
+                    del.postDelayed(new Runnable() {
+                        public void run() {
+                            b.setText("Logo");
+                            bf.setText("Logo");
+                        }
+                    }, 1000);
+
 
             }
             anterior=0;
