@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Iniciar();
+        wait=1;
 
       /* b1= (Button) findViewById(R.id.button);
 
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                     t1.setText(getString(R.string.onplayintext)+puntos);
                     if (puntos.equals(8)){
+                        wait=1;
                         t1.setText(getString(R.string.finishtext)+puntos);
                     }
 
@@ -110,38 +111,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void Iniciar(){
-        wait=1;
-        t1=(TextView) findViewById(R.id.t1);
+    public void Iniciar(View view) {
+        if ( wait.equals(1)){
+            t1 = (TextView) findViewById(R.id.t1);
 
-        for (int i=1;i<=16;i++){
-            String res="b"+i;
-            Integer cod=getResources().getIdentifier(res, "id", getPackageName());
-            Log.v("Desarrollo",cod.toString());
-            b[i]=(Button) findViewById(cod);
-        }
-
-
-        ArrayList<Integer> number = new ArrayList<Integer>();
-        for (int i = 2; i <= 17; ++i) {
-            number.add(i/2);
-        }
-        Collections.shuffle(number);
-        for (int i = 1; i <= 16; ++i) {
-            b[i].setTag(number.get(i - 1));
-            b[i].setText(number.get(i - 1).toString());
-        }
-        Toast.makeText(this,"Observa los numeros",5000).show();
-        Handler del= new Handler();
-        del.postDelayed(new Runnable() {
-            public void run() {
-                for (int i = 1; i <= 16; ++i) {
-                    b[i].setText("Logo");
-                }
-                wait=0;
+            for (int i = 1; i <= 16; i++) {
+                String res = "b" + i;
+                Integer cod = getResources().getIdentifier(res, "id", getPackageName());
+                Log.v("Desarrollo", cod.toString());
+                b[i] = (Button) findViewById(cod);
             }
-        }, 5000);
 
+
+            ArrayList<Integer> number = new ArrayList<Integer>();
+            for (int i = 2; i <= 17; ++i) {
+                number.add(i / 2);
+            }
+            Collections.shuffle(number);
+            for (int i = 1; i <= 16; ++i) {
+                b[i].setTag(number.get(i - 1));
+                b[i].setText(number.get(i - 1).toString());
+                b[i].setEnabled(true);
+            }
+            Toast.makeText(this, "Observa los numeros", 5000).show();
+            Handler del = new Handler();
+            del.postDelayed(new Runnable() {
+                public void run() {
+                    for (int i = 1; i <= 16; ++i) {
+                        b[i].setText("Logo");
+                    }
+                    wait = 0;
+                    t1.setText(getString(R.string.onplayintext)+puntos);
+
+                }
+            }, 5000);
+
+        }
     }
 
 }
