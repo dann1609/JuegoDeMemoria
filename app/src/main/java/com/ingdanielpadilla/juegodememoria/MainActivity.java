@@ -114,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
     public void Iniciar(View view) {
         if ( wait.equals(1)){
             t1 = (TextView) findViewById(R.id.t1);
-
+            t1.setText(getString(R.string.starttext));
+            puntos=0;
             for (int i = 1; i <= 16; i++) {
                 String res = "b" + i;
                 Integer cod = getResources().getIdentifier(res, "id", getPackageName());
