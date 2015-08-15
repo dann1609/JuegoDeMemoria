@@ -30,28 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        t1=(TextView) findViewById(R.id.t1);
-
-        for (int i=1;i<=16;i++){
-            String res="b"+i;
-            Integer cod=getResources().getIdentifier(res, "id", getPackageName());
-            Log.v("Desarrollo",cod.toString());
-            b[i]=(Button) findViewById(cod);
-        }
-
-
-        ArrayList<Integer> number = new ArrayList<Integer>();
-        for (int i = 1; i <= 16; ++i) {
-            number.add(i/2);
-            b[i].setTag(1);
-        }
-        Collections.shuffle(number);
-        for (int i = 1; i <= 16; ++i) {
-            b[i].setTag(number.get(i-1));
-        }
-
-
-
+        Iniciar();
 
       /* b1= (Button) findViewById(R.id.button);
 
@@ -90,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         if (wait==0){
             bi = (Button) view;
             codigo = bi.getId();
-        }
+            t1.setText(getString(R.string.onplayintext)+puntos);
+    }
         if (!codigo.equals(anterior)&& wait==0){
             Integer tag=(Integer)bi.getTag();
             bi.setText(tag.toString());
@@ -99,16 +79,18 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 bf=(Button) findViewById(anterior);
                 if (tag==(Integer)bf.getTag()){
-                    Toast.makeText(this,"Exelente",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Exelente",1500).show();
                     bi.setEnabled(false);
                     bf.setEnabled(false);
                     puntos=puntos+1;
 
-                    t1.setText("Jugando Parejas encontradas:"+puntos);
+                    t1.setText(getString(R.string.onplayintext)+puntos);
+                    if (puntos.equals(8)){
+                        t1.setText(getString(R.string.finishtext)+puntos);
+                    }
 
                 }else{
-                    Toast.makeText(this,"No No No..",Toast.LENGTH_SHORT).show();
-                    t1.setText(getString(R.string.onplayintext)+puntos);
+                    Toast.makeText(this,"No No No..",1500).show();
                     wait=1;
                     Handler del= new Handler();
                         del.postDelayed(new Runnable() {
@@ -117,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                                 bf.setText("Logo");
                                 wait=0;
                             }
-                        }, 2000);
+                        }, 1500);
 
 
                 }
@@ -128,12 +110,38 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    /*public void AsignaNumero{
-        for (int i = 1; i < 16; i++) {
-            Vector cartas;
-            cartas = Vector(new);
-            cartas(1)=findViewById(R.id.b"1");
+    public void Iniciar(){
+        wait=1;
+        t1=(TextView) findViewById(R.id.t1);
 
+        for (int i=1;i<=16;i++){
+            String res="b"+i;
+            Integer cod=getResources().getIdentifier(res, "id", getPackageName());
+            Log.v("Desarrollo",cod.toString());
+            b[i]=(Button) findViewById(cod);
         }
-    }*/
+
+
+        ArrayList<Integer> number = new ArrayList<Integer>();
+        for (int i = 2; i <= 17; ++i) {
+            number.add(i/2);
+        }
+        Collections.shuffle(number);
+        for (int i = 1; i <= 16; ++i) {
+            b[i].setTag(number.get(i - 1));
+            b[i].setText(number.get(i - 1).toString());
+        }
+        Toast.makeText(this,"Observa los numeros",5000).show();
+        Handler del= new Handler();
+        del.postDelayed(new Runnable() {
+            public void run() {
+                for (int i = 1; i <= 16; ++i) {
+                    b[i].setText("Logo");
+                }
+                wait=0;
+            }
+        }, 5000);
+
+    }
+
 }
