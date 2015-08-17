@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     Integer codigo=0;
     Integer puntos=0;
     Integer wait=0;
+    Integer start=0;
+    Integer swdelay=0;
     Button bi;
     Button bf;
     Button[] b=new Button[17];;
@@ -66,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void VolteaBoton(View view) {
 
+        if(start==0){
+            Iniciar(view);
+        }
         if (wait==0){
             bi = (Button) view;
             codigo = bi.getId();
@@ -87,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                     t1.setText(getString(R.string.onplayintext)+puntos);
                     if (puntos.equals(8)){
                         wait=1;
+                        start=0;
+                        swdelay=0;
                         t1.setText(getString(R.string.finishtext)+puntos);
                     }
 
@@ -135,17 +142,22 @@ public class MainActivity extends AppCompatActivity {
                 b[i].setEnabled(true);
             }
             Toast.makeText(this, "Observa los numeros", 5000).show();
-            Handler del = new Handler();
-            del.postDelayed(new Runnable() {
-                public void run() {
-                    for (int i = 1; i <= 16; ++i) {
-                        b[i].setText("Logo");
-                    }
-                    wait = 0;
-                    t1.setText(getString(R.string.onplayintext)+puntos);
+            if (swdelay==0) {
+                Handler del = new Handler();
+                swdelay=1;
+                del.postDelayed(new Runnable() {
+                    public void run() {
+                        for (int i = 1; i <= 16; ++i) {
+                            b[i].setText("Logo");
+                        }
 
-                }
-            }, 5000);
+                        start = 1;
+                        t1.setText(getString(R.string.onplayintext) + puntos);
+                        wait = 0;
+
+                    }
+                }, 5000);
+            }
 
         }
     }
