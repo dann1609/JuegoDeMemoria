@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Juego De Memoria</string>
     <string name="starttext">Bienvenido al juego \n Pulsa para jugar</string>
-    <string name="onplayintext">Jugando   Parejas encontradas:</string>
-    <string name="finishtext">Juego terminado Parejas encontradas:</string>
+    <string name="onplayintext">Jugando \n Parejas encontradas:</string>
+    <string name="finishtext">Juego terminado \n Parejas encontradas:</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 </resources>
