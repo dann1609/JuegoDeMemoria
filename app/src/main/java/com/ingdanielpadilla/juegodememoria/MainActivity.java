@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
@@ -24,10 +25,14 @@ public class MainActivity extends AppCompatActivity {
     Integer wait=0;
     Integer start=0;
     Integer swdelay=0;
+    Integer delay=800;
+    Integer startdelay=5000;
     Button bi;
     Button bf;
     Button[] b=new Button[17];;
     TextView t1;
+    LinearLayout lheight;
+    LinearLayout lweight;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 bf=(Button) findViewById(anterior);
                 if (tag==(Integer)bf.getTag()){
-                    Toast.makeText(this,"Exelente",1500).show();
+                    Toast.makeText(this,"Exelente",delay).show();
                     bi.setEnabled(false);
                     bf.setEnabled(false);
                     puntos=puntos+1;
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }else{
-                    Toast.makeText(this,"No No No..",1500).show();
+                    Toast.makeText(this,"No No No..",delay).show();
                     wait=1;
                     Handler del= new Handler();
                         del.postDelayed(new Runnable() {
@@ -125,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
             t1 = (TextView) findViewById(R.id.t1);
             t1.setText(getString(R.string.starttext));
             puntos=0;
+            lheight=(LinearLayout) findViewById(R.id.lheight);
+            lweight=(LinearLayout) findViewById(R.id.lweight);
+            lheight.getWeightSum();
             for (int i = 1; i <= 16; i++) {
                 String res = "b" + i;
                 Integer cod = getResources().getIdentifier(res, "id", getPackageName());
@@ -143,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 b[i].setText(number.get(i - 1).toString());
                 b[i].setEnabled(true);
             }
-            Toast.makeText(this, "Observa los numeros", 5000).show();
+            Toast.makeText(this, "Observa los numeros", startdelay).show();
             if (swdelay==0) {
                 Handler del = new Handler();
                 swdelay=1;

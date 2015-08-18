@@ -22,12 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="4">
+        android:layout_weight="4"
+        android:id="@+id/lheight">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:id="@+id/lweight">
 
             <Button
                 android:layout_width="0dp"
