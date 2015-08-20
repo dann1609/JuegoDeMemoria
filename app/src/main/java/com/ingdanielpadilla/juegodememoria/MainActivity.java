@@ -2,10 +2,12 @@ package com.ingdanielpadilla.juegodememoria;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -27,18 +29,24 @@ public class MainActivity extends AppCompatActivity {
     Integer swdelay=0;
     Integer delay=800;
     Integer startdelay=5000;
+    Integer totheight;
+    Integer totwidth;
+    Integer size;
+    Integer hmargin;
+    Integer wmargin;
     Button bi;
     Button bf;
     Button[] b=new Button[17];;
     TextView t1;
     LinearLayout lheight;
-    LinearLayout lweight;
+    LinearLayout lwidth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         wait=1;
+
 
 
       /* b1= (Button) findViewById(R.id.button);
@@ -130,14 +138,13 @@ public class MainActivity extends AppCompatActivity {
             t1 = (TextView) findViewById(R.id.t1);
             t1.setText(getString(R.string.starttext));
             puntos=0;
-            lheight=(LinearLayout) findViewById(R.id.lheight);
-            lweight=(LinearLayout) findViewById(R.id.lweight);
-            lheight.getWeightSum();
+            Cuadrastilizar(view);
             for (int i = 1; i <= 16; i++) {
                 String res = "b" + i;
                 Integer cod = getResources().getIdentifier(res, "id", getPackageName());
                 Log.v("Desarrollo", cod.toString());
                 b[i] = (Button) findViewById(cod);
+
             }
 
 
@@ -170,6 +177,33 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    public void Cuadrastilizar(View view){
+        lheight=(LinearLayout) findViewById(R.id.lheight);
+        lwidth=(LinearLayout) findViewById(R.id.lwidth);
+        totheight=lheight.getHeight();
+        totwidth=lwidth.getWidth();
+        Log.v("Desarrollo", totheight.toString());
+        Log.v("Desarrollo", totwidth.toString());
+        ArrayList<Integer> sizes=new ArrayList<Integer>();
+        sizes.add(totheight);
+        sizes.add(totwidth);
+        size=Collections.min(sizes)/4;
+        hmargin=(totheight-4*size)/8;
+        wmargin=(totwidth-4*size)/8;
+        Log.v("Desarrollo", size.toString());
+
+        for (int i = 1; i <= 16; i++) {
+            String res = "b" + i;
+            Integer cod = getResources().getIdentifier(res, "id", getPackageName());
+            Log.v("Desarrollo", cod.toString());
+            b[i] = (Button) findViewById(cod);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
+            params.setMargins(wmargin, hmargin, wmargin, hmargin);
+            b[i].setLayoutParams(params);
+        }
+
     }
 
 }
