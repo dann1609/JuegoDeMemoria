@@ -7,18 +7,33 @@
     android:background="@color/background_material_dark"
     android:id="@+id/view">
 
-    <TextView android:text="@string/starttext"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.2"
-        android:id="@+id/t1"
-        android:gravity="right"
-        android:textSize="26sp"
-        android:paddingRight="10sp"
-        android:paddingLeft="10sp"
-        android:textColor="@color/abc_primary_text_material_dark"
-        android:clickable="true"
-        android:onClick="Iniciar"/>
+        android:layout_weight="1.1"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Historial"
+            android:onClick="AbrirHistorial"/>
+
+        <TextView android:text="@string/starttext"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/t1"
+            android:gravity="right"
+            android:textSize="26sp"
+            android:paddingRight="10sp"
+            android:paddingLeft="10sp"
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:clickable="true"
+            android:onClick="Iniciar"/>
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -37,93 +52,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Logo"
-                android:id="@+id/b1"
-                android:onClick="VolteaBoton"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                android:id="@+id/b2"
-                android:onClick="VolteaBoton"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                android:id="@+id/b3"
-                android:onClick="VolteaBoton"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                android:id="@+id/b4"
-                android:onClick="VolteaBoton"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                android:id="@+id/b5"
-                android:onClick="VolteaBoton"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                android:id="@+id/b6"
-                android:onClick="VolteaBoton"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                android:id="@+id/b7"
-                android:onClick="VolteaBoton"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                android:id="@+id/b8"
-                android:onClick="VolteaBoton"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                android:id="@+id/b9"
-                android:onClick="VolteaBoton"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                android:id="@+id/b10"
-                android:onClick="VolteaBoton"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Logo"
-                 android:id="@+id/b11"
+                android:id="@+id/b11"
                 android:onClick="VolteaBoton"/>
             <Button
                 android:layout_width="0dp"
@@ -132,14 +61,6 @@
                 android:text="Logo"
                 android:id="@+id/b12"
                 android:onClick="VolteaBoton"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -154,23 +75,119 @@
                 android:text="Logo"
                 android:id="@+id/b14"
                 android:onClick="VolteaBoton"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Logo"
-                android:id="@+id/b15"
+                android:id="@+id/b21"
                 android:onClick="VolteaBoton"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Logo"
-                android:id="@+id/b16"
+                android:id="@+id/b22"
+                android:onClick="VolteaBoton"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b23"
+                android:onClick="VolteaBoton"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b24"
+                android:onClick="VolteaBoton"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b31"
+                android:onClick="VolteaBoton"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b32"
+                android:onClick="VolteaBoton"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b33"
+                android:onClick="VolteaBoton"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b34"
+                android:onClick="VolteaBoton"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b41"
+                android:onClick="VolteaBoton"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b42"
+                android:onClick="VolteaBoton"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b43"
+                android:onClick="VolteaBoton"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Logo"
+                android:id="@+id/b44"
                 android:onClick="VolteaBoton"/>
         </LinearLayout>
 
 
+
     </LinearLayout>
+
 
 </LinearLayout>

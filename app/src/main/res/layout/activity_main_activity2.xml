@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ingdanielpadilla.juegodememoria.MainActivity2Activity"
+    android:background="@color/background_material_dark">
+
+    <TextView android:text="@string/starttext"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/disp"
+        android:gravity="right"
+        android:textSize="26sp"
+        android:paddingRight="10sp"
+        android:paddingLeft="10sp"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:clickable="true" />
+
+</LinearLayout>

@@ -1,14 +1,16 @@
 package com.ingdanielpadilla.juegodememoria;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,31 +23,30 @@ import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
-    Integer anterior=0;
-    Integer codigo=0;
-    Integer puntos=0;
-    Integer wait=0;
-    Integer start=0;
-    Integer swdelay=0;
-    Integer delay=800;
-    Integer startdelay=5000;
-    Integer totheight;
-    Integer totwidth;
-    Integer size;
-    Integer hmargin;
-    Integer wmargin;
-    Button bi;
-    Button bf;
-    Button[] b=new Button[17];;
+    Integer anterior = 0, codigo = 0, parejas = 0, intentos = 0, wait = 0, start = 0, swdelay = 0, delay = 800, startdelay = 5000,
+            totheight, totwidth, size, hmargin, wmargin, hnum, wnum;
+    Button bi, bf;
+    Button[] b=new Button[99];;
     TextView t1;
-    LinearLayout lheight;
-    LinearLayout lwidth;
+    LinearLayout lheight,lwidth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         wait=1;
+        t1 = (TextView) findViewById(R.id.t1);
+        final ViewTreeObserver observer= t1.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Cuadrastilizar();
+                t1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                Log.v("Desarrollo", "Se cuadrastilizo");
+            }
+        });
 
 
 
@@ -60,11 +61,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -89,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         if (wait==0){
             bi = (Button) view;
             codigo = bi.getId();
-            t1.setText(getString(R.string.onplayintext)+puntos);
+            t1.setText(getString(R.string.onplayintext)+ parejas+"\n"+getString(R.string.score)+intentos);
     }
         if (!codigo.equals(anterior)&& wait==0){
             Integer tag=(Integer)bi.getTag();
@@ -98,22 +107,38 @@ public class MainActivity extends AppCompatActivity {
             anterior=codigo;
             }else{
                 bf=(Button) findViewById(anterior);
+                intentos=intentos+1;
                 if (tag==(Integer)bf.getTag()){
                     Toast.makeText(this,"Exelente",delay).show();
                     bi.setEnabled(false);
                     bf.setEnabled(false);
-                    puntos=puntos+1;
+                    parejas = parejas +1;
 
-                    t1.setText(getString(R.string.onplayintext)+puntos);
-                    if (puntos.equals(8)){
+                    t1.setText(getString(R.string.onplayintext)+ parejas+"\n"+getString(R.string.score)+intentos);
+                    if (parejas.equals(8)){
                         wait=1;
                         start=0;
                         swdelay=0;
-                        t1.setText(getString(R.string.finishtext)+puntos);
+                        t1.setText(getString(R.string.finishtext)+ parejas+"\n"+getString(R.string.score)+intentos);
+                        Integer juegos=0;
+                        SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        juegos=sp.getInt("juegos", 0);
+                        Integer mi=sp.getInt("mejorpuntaje", 999);
+                        if(intentos<mi)
+                        {
+                            mi=intentos;
+                        }
+                        juegos=juegos+1;
+                        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor editor=sharedPref.edit();
+                        editor.putInt("juegos",juegos);
+                        editor.putInt("mejorpuntaje",mi);
+                        editor.commit();
+                        Log.d("TAG", juegos.toString());
                     }
 
                 }else{
-                    Toast.makeText(this,"No No No..",delay).show();
+                    t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + intentos);
                     wait=1;
                     Handler del= new Handler();
                         del.postDelayed(new Runnable() {
@@ -137,23 +162,27 @@ public class MainActivity extends AppCompatActivity {
         if ( wait.equals(1)){
             t1 = (TextView) findViewById(R.id.t1);
             t1.setText(getString(R.string.starttext));
-            puntos=0;
-            Cuadrastilizar(view);
-            for (int i = 1; i <= 16; i++) {
-                String res = "b" + i;
-                Integer cod = getResources().getIdentifier(res, "id", getPackageName());
-                Log.v("Desarrollo", cod.toString());
-                b[i] = (Button) findViewById(cod);
+            Integer a=t1.getLineHeight();
+            Log.v("Desarrollo l", a.toString());
+            parejas =0;
+            intentos=0;
 
+            for (int i = 1; i <= hnum; i++) {
+                for (int j = 1; j <= wnum; j++) {
+                    String res = "b" + i+j;
+                    Integer cod = getResources().getIdentifier(res, "id", getPackageName());
+                    //Log.v("Desarrollo", cod.toString());
+                    b[(i-1)*wnum+j] = (Button) findViewById(cod);
+                }
             }
 
 
             ArrayList<Integer> number = new ArrayList<Integer>();
-            for (int i = 2; i <= 17; ++i) {
+            for (int i = 2; i <= hnum*wnum+1; ++i) {
                 number.add(i / 2);
             }
             Collections.shuffle(number);
-            for (int i = 1; i <= 16; ++i) {
+            for (int i = 1; i <= hnum*wnum; ++i) {
                 b[i].setTag(number.get(i - 1));
                 b[i].setText(number.get(i - 1).toString());
                 b[i].setEnabled(true);
@@ -164,12 +193,12 @@ public class MainActivity extends AppCompatActivity {
                 swdelay=1;
                 del.postDelayed(new Runnable() {
                     public void run() {
-                        for (int i = 1; i <= 16; ++i) {
+                        for (int i = 1; i <= hnum*wnum; ++i) {
                             b[i].setText("Logo");
                         }
 
                         start = 1;
-                        t1.setText(getString(R.string.onplayintext) + puntos);
+                        t1.setText(getString(R.string.onplayintext) + parejas);
                         wait = 0;
 
                     }
@@ -179,31 +208,46 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void Cuadrastilizar(View view){
+    public void Cuadrastilizar(){
         lheight=(LinearLayout) findViewById(R.id.lheight);
         lwidth=(LinearLayout) findViewById(R.id.lwidth);
         totheight=lheight.getHeight();
         totwidth=lwidth.getWidth();
-        Log.v("Desarrollo", totheight.toString());
-        Log.v("Desarrollo", totwidth.toString());
+        hnum=lheight.getChildCount();
+        wnum=lwidth.getChildCount();
+        Log.v("Desarrollo height", totheight.toString());
+        Log.v("Desarrollo width", totwidth.toString());
+        Log.v("Desarrollo num height", hnum.toString());
+        Log.v("Desarrollo num width", wnum.toString());
         ArrayList<Integer> sizes=new ArrayList<Integer>();
-        sizes.add(totheight);
-        sizes.add(totwidth);
-        size=Collections.min(sizes)/4;
-        hmargin=(totheight-4*size)/8;
-        wmargin=(totwidth-4*size)/8;
-        Log.v("Desarrollo", size.toString());
+        sizes.add(totheight/hnum);
+        sizes.add(totwidth/wnum);
+        size=Collections.min(sizes);
+        hmargin=(totheight-hnum*size)/(2*hnum);
+        wmargin=(totwidth-wnum*size)/(2*wnum);
+        Log.v("Desarrollo size", size.toString());
+        Log.v("Desarrollo hmargin", hmargin.toString());
+        Log.v("Desarrollo wmargin", wmargin.toString());
 
-        for (int i = 1; i <= 16; i++) {
-            String res = "b" + i;
-            Integer cod = getResources().getIdentifier(res, "id", getPackageName());
-            Log.v("Desarrollo", cod.toString());
-            b[i] = (Button) findViewById(cod);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
-            params.setMargins(wmargin, hmargin, wmargin, hmargin);
-            b[i].setLayoutParams(params);
+        for (int i = 1; i <= hnum; i++) {
+            for (int j = 1; j <= wnum; j++) {
+                String res = "b" + i+j;
+                Integer cod = getResources().getIdentifier(res, "id", getPackageName());
+                Log.v("Desarrollo", res);
+                b[(i-1)*wnum+j] = (Button) findViewById(cod);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
+                params.setMargins(wmargin, hmargin, wmargin, hmargin);
+                b[(i-1)*wnum+j].setLayoutParams(params);
+            }
         }
 
     }
 
+    public void AbrirHistorial(View view) {
+        Intent intent = new Intent(this, MainActivity2Activity.class);
+        intent.putExtra("hola","hola");
+        Log.d("TAG", "sendMessage");
+        Toast.makeText(this,"sendMessage",Toast.LENGTH_SHORT).show();
+        startActivity(intent);
+    }
 }
