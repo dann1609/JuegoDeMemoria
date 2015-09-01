@@ -9,7 +9,7 @@
 
     <TextView android:text="@string/starttext"
         android:layout_width="match_parent"
-        android:layout_height="96sp"
+        android:layout_height="94sp"
         android:id="@+id/t1"
         android:gravity="right"
         android:textSize="26sp"
