@@ -1,7 +1,12 @@
 package com.ingdanielpadilla.juegodememoria;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +27,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    Integer anterior = 0, codigo = 0, parejas = 0, intentos = 0, wait = 0, start = 0, swdelay = 0, delay = 3800, startdelay = 5000,
-            totheight, totwidth, size, hmargin, wmargin, hnum, wnum;
+    Integer anterior = 0, codigo = 0, parejas = 0, intentos = 0, wait = 0, start = 0, swdelay = 0, delay = 1000, startdelay = 5000,
+            tage=0,totheight, totwidth, size, hmargin, wmargin, hnum=0, wnum=0;
     long startTime=0,elapsedTime=0;
+    double ax2,ay2,az2,at;
     Button bi, bf;
     Button[] b=new Button[99];
     boolean[] state=new boolean[99];
@@ -35,22 +41,31 @@ public class MainActivity extends AppCompatActivity {
     TextView t1;
     LinearLayout lheight,lwidth;
 
+    private SensorManager mSensorManager;
+    private Sensor mAcelSensor;
+    private boolean swstart;
+    private Integer ntype1=3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        swstart = false;
+        if (!swstart) {
+            startCapture(MainActivity.this, ntype1);
+        }
 
-        wait=1;
+        wait = 1;
         t1 = (TextView) findViewById(R.id.t1);
-        final ViewTreeObserver observer= t1.getViewTreeObserver();
+        final ViewTreeObserver observer = t1.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 Cuadrastilizar();
                 t1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                Log.v("Desarrollo", "Se cuadrastilizo");
+
             }
         });
 
@@ -67,12 +82,43 @@ public class MainActivity extends AppCompatActivity {
         });*/
     }
 
+
+    public void onStop() {
+        super.onStop();
+        stopCapturing();
+    }
+
+    public void onPause() {
+        super.onPause();
+        stopCapturing();
+    }
+    public void startCapture(Context context,Integer ntype1) {
+        swstart = true;
+
+        mSensorManager = (SensorManager) getSystemService(context.SENSOR_SERVICE);
+
+        mAcelSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(this, mAcelSensor, ntype1);
+    }
+
+    public void stopCapturing() {
+        swstart = false;
+        if (mSensorManager != null) {
+            mSensorManager.unregisterListener(this, mAcelSensor);
+        } else {
+            //Toast.makeText(getApplicationContext(),"mSensorManager null", Toast.LENGTH_LONG).show();
+        }
+    }
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current game state
+        tag.clear();
         for (int i = 1; i <= hnum*wnum; i++){
             state[i]=b[i].isEnabled();
-            tag.add((Integer)b[i].getTag());
+            if((Integer)b[i].getTag()!=null) {
+                tag.add((Integer) b[i].getTag());
+            }
+            //Log.v("Desarrollo", b[i].getTag().toString());
             id.add((Integer)b[i].getId());
 
 
@@ -130,22 +176,32 @@ public class MainActivity extends AppCompatActivity {
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                Cuadrastilizar();
-                for (int i = 1; i <= hnum*wnum; i++){
+                Log.v("Desarrollo", "Inicia la reasignacion de los botones");
+              for (int i = 1; i <= hnum*wnum; i++){
                     b[i].setEnabled(state[i]);
-                    b[i].setTag(tag.get(i-1));
+                  if(tag.size()!=0) {
+                      b[i].setTag(tag.get(i - 1));
+                  }
+                  if((Integer)b[i].getTag()!=null) {
+                      Log.v("Desarrollo", b[i].getTag().toString());
+                  }
                     if(!b[i].isEnabled()){
-                        Integer tag=(Integer)b[i].getTag();
+                        Integer tag;
+                        tag = (Integer)b[i].getTag();
                         b[i].setText(tag.toString());
                     }
-                    /*b[i].setId(id.get(i));*/
+
                     if (codigo.equals(b[i].getId())||anterior.equals(b[i].getId())||(swdelay.equals(1)&& start.equals(0))) {
                         Log.v("Desarrollo", "Se recargo la referencia del boton");
 
-                        Integer tag = (Integer) b[i].getTag();
-                        b[i].setText(tag.toString());
+
+                        tage = (Integer)b[i].getTag();
+                        Log.v("Desarrollo dead", Integer.toString(i));
+                        Log.v("Desarrollo dead", Integer.toString(tage));
+                        b[i].setText(tage.toString());
                     }
                 }
+
                 if (swdelay.equals(1)&& start.equals(0)) {
                     Handler del = new Handler();
 
@@ -183,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
                     }, delay-elapsedTime);
                     startTime = System.currentTimeMillis();
                 }
+
 
                 t1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 Log.v("Desarrollo", "Se disabledizo");
@@ -233,8 +290,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (!codigo.equals(anterior) && wait == 0) {
             Log.v("Desarrollo", "es diferente del anterior");
-            Integer tag = (Integer) bi.getTag();
-            bi.setText(tag.toString());
+            Integer tag;
+            tag = (Integer) bi.getTag();
+            bi.setText(Integer.toString(tag) );
             if (anterior == 0) {
                 anterior = codigo;
                 Log.v("Desarrollo", "no hubo anterior");
@@ -351,6 +409,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Cuadrastilizar(){
+        Log.v("Desarrollo", "Inicio Cuadrastilizar");
         lheight=(LinearLayout) findViewById(R.id.lheight);
         lwidth=(LinearLayout) findViewById(R.id.lwidth);
         totheight=lheight.getHeight();
@@ -375,14 +434,14 @@ public class MainActivity extends AppCompatActivity {
             for (int j = 1; j <= wnum; j++) {
                 String res = "b" + i+j;
                 Integer cod = getResources().getIdentifier(res, "id", getPackageName());
-                Log.v("Desarrollo", res);
+                //Log.v("Desarrollo", res);
                 b[(i-1)*wnum+j] = (Button) findViewById(cod);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
                 params.setMargins(wmargin, hmargin, wmargin, hmargin);
                 b[(i-1)*wnum+j].setLayoutParams(params);
             }
         }
-
+        Log.v("Desarrollo", "Finalizo Cuadrastilizar");
     }
 
     public void AbrirHistorial(View view) {
@@ -391,5 +450,31 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TAG", "sendMessage");
         Toast.makeText(this,"sendMessage",Toast.LENGTH_SHORT).show();
         startActivity(intent);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+
+
+        ax2= Math.pow(event.values[0],2);
+        ay2= Math.pow(event.values[1],2);
+        az2= Math.pow(event.values[2],2);
+        at=Math.sqrt(ax2 + ay2 + az2);
+        Log.v("Desarrollo", Double.toString(at));
+        if(at>=25){
+            wait = 1;
+            start = 0;
+            swdelay = 0;
+            codigo=0;
+            anterior=0;
+            Iniciar(findViewById(R.id.t1));
+        }
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }
