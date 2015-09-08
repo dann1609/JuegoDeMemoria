@@ -29,7 +29,7 @@ import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    Integer anterior = 0, codigo = 0, parejas = 0, wait = 0, start = 0, swdelay = 0, delay = 1000, startdelay = 5000,
+    Integer anterior = 0, codigo = 0, parejas = 0, wait = 0, start = 0, swdelay = 0, delay = 500, startdelay = 3000,
             tage=0,totheight, totwidth, size, hmargin, wmargin, hnum=0, wnum=0;
     long startTime=0,elapsedTime=0;
     float puntos = 0, maxscore=10000, pluscore , lesscore;
@@ -286,74 +286,77 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (wait == 0) {
             bi = (Button) view;
             codigo = bi.getId();
-            t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
             Log.v("Desarrollo", "Se obtubo la referencia del boton");
-        }
-        if (!codigo.equals(anterior) && wait == 0) {
-            Log.v("Desarrollo", "es diferente del anterior");
-            Integer tag;
-            tag = (Integer) bi.getTag();
-            bi.setText(Integer.toString(tag) );
-            if (anterior == 0) {
-                anterior = codigo;
-                Log.v("Desarrollo", "no hubo anterior");
-            } else {
-                Log.v("Desarrollo", "Si hubo anterior");
-                bf = (Button) findViewById(anterior);
-                puntos = puntos + 1;
-                if (tag == (Integer) bf.getTag()) {
-                    Log.v("Desarrollo", "hay coincidencia");
-                    Toast.makeText(this, "Exelente", delay).show();
-                    bi.setEnabled(false);
-                    bf.setEnabled(false);
-                    puntos=puntos+pluscore;
-                    parejas = parejas + 1;
 
-                    t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
-                    if (parejas.equals(8)) {
-                        Log.v("Desarrollo", "se acabo el juego");
-                        wait = 1;
-                        start = 0;
-                        swdelay = 0;
-                        t1.setText(getString(R.string.finishtext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
-                        Integer juegos = 0;
-                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        juegos = sp.getInt("juegos", 0);
-                        Float mi = sp.getFloat("mejorpuntaje", 0);
-                        if (puntos > mi) {
-                            mi = puntos;
-                        }
-                        juegos = juegos + 1;
-                        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putInt("juegos", juegos);
-                        editor.putFloat("mejorpuntaje", mi);
-                        editor.commit();
-                        Log.d("TAG", juegos.toString());
-                    }
-                    codigo = 0;
-                    anterior = 0;
-
+            if (!codigo.equals(anterior)) {
+                Log.v("Desarrollo", "es diferente del anterior");
+                Integer tag;
+                tag = (Integer) bi.getTag();
+                bi.setText(Integer.toString(tag));
+                if (anterior == 0) {
+                    anterior = codigo;
+                    Log.v("Desarrollo", "no hubo anterior");
                 } else {
-                    Log.v("Desarrollo", "no hay coincidencia");
-                    puntos=puntos-lesscore;
-                    t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
-                    wait = 1;
-                    Handler del = new Handler();
-                    del.postDelayed(new Runnable() {
-                        public void run() {
-                            bi.setText("Logo");
-                            bf.setText("Logo");
-                            wait = 0;
-                            codigo = 0;
-                            anterior = 0;
-                        }
-                    }, 1500);
-                    startTime = System.currentTimeMillis();
+                    Log.v("Desarrollo", "Si hubo anterior");
+                    bf = (Button) findViewById(anterior);
+                    puntos = puntos + 1;
+                    if (tag == (Integer) bf.getTag()) {
+                        Log.v("Desarrollo", "hay coincidencia");
+                        Toast.makeText(this, "Exelente", delay).show();
+                        bi.setEnabled(false);
+                        bf.setEnabled(false);
+                        puntos = puntos + pluscore;
+                        parejas = parejas + 1;
 
+                        if (parejas.equals(8)) {
+                            Log.v("Desarrollo", "se acabo el juego");
+                            wait = 1;
+                            start = 0;
+                            swdelay = 0;
+                            t1.setText(getString(R.string.finishtext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
+                            Integer juegos = 0;
+                            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            juegos = sp.getInt("juegos", 0);
+                            Float mi = sp.getFloat("mejorpuntaje", 0);
+                            if (puntos > mi) {
+                                mi = puntos;
+                            }
+                            juegos = juegos + 1;
+                            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putInt("juegos", juegos);
+                            editor.putFloat("mejorpuntaje", mi);
+                            editor.commit();
+                            Log.d("TAG", juegos.toString());
+                        }
+                        codigo = 0;
+                        anterior = 0;
+
+                    } else {
+                        Log.v("Desarrollo", "no hay coincidencia");
+                        puntos = puntos - lesscore;
+                        wait = 1;
+                        Handler del = new Handler();
+                        del.postDelayed(new Runnable() {
+                            public void run() {
+                                bi.setText("Logo");
+                                bf.setText("Logo");
+                                wait = 0;
+                                codigo = 0;
+                                anterior = 0;
+                            }
+                        }, 1500);
+                        startTime = System.currentTimeMillis();
+
+
+                    }
 
                 }
-
+            }
+            if (puntos>=0) {
+                t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
+            } else {
+                t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + 0);
             }
         }
 
@@ -451,9 +454,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void AbrirHistorial(View view) {
         Intent intent = new Intent(this, MainActivity2Activity.class);
-        intent.putExtra("hola","hola");
-        Log.d("TAG", "sendMessage");
-        Toast.makeText(this,"sendMessage",Toast.LENGTH_SHORT).show();
+        intent.putExtra("hola", "hola");
+        Log.d("Desarrollo", "Se abrio el historial");
         startActivity(intent);
     }
 
@@ -467,7 +469,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         az2= Math.pow(event.values[2],2);
         at=Math.sqrt(ax2 + ay2 + az2);
         Log.v("Desarrollo", Double.toString(at));
-        if(at>=25){
+        if(at>=20){
             wait = 1;
             start = 0;
             swdelay = 0;
