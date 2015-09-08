@@ -18,9 +18,9 @@ public class MainActivity2Activity extends ActionBarActivity {
 
         SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Integer juegos=sp.getInt("juegos", 0);
-        Integer puntaje=sp.getInt("mejorpuntaje",999);
+        Float puntaje=sp.getFloat("mejorpuntaje", 0);
         TextView disp=(TextView) findViewById(R.id.disp);
-        disp.setText("Numero de juegos: "+juegos.toString()+"\n Mejor Puntaje: "+puntaje.toString());
+        disp.setText("Numero de juegos: "+juegos.toString()+"\n Mejor Puntaje: "+String.format("%.0f", puntaje));
 
     }
 
