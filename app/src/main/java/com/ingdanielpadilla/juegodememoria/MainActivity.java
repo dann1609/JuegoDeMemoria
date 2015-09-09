@@ -83,6 +83,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         });*/
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!swstart) {
+            startCapture(MainActivity.this, ntype1);
+        }
+    }
 
     public void onStop() {
         super.onStop();
@@ -345,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                 codigo = 0;
                                 anterior = 0;
                             }
-                        }, 1500);
+                        }, delay);
                         startTime = System.currentTimeMillis();
 
 
@@ -448,7 +455,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         }
         pluscore=2*maxscore/(hnum*wnum);
-        lesscore=pluscore/(hnum*wnum);
+        lesscore=2*pluscore/(hnum*wnum);
         Log.v("Desarrollo", "Finalizo Cuadrastilizar");
     }
 
