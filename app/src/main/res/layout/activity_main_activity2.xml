@@ -19,12 +19,18 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:gravity="left"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Nivel: Muy Facil"
+                style="@style/cartas"                 android:text="Nivel: Muy Facil"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -37,7 +43,7 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -50,7 +56,7 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
             <TextView
@@ -66,7 +72,7 @@
             android:gravity="left"
             android:paddingLeft="10sp"
             android:paddingRight="10sp"
-            android:text="Nivel: Facil"
+            style="@style/cartas"                 android:text="Nivel: Facil"
             android:textColor="@color/abc_primary_text_material_dark"
             android:textSize="26sp" />
 
@@ -79,7 +85,7 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -92,7 +98,7 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -109,7 +115,7 @@
                 android:gravity="left"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Nivel: Normal"
+                style="@style/cartas"                 android:text="Nivel: Normal"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -122,7 +128,7 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -135,7 +141,7 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -152,7 +158,7 @@
                 android:gravity="left"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Nivel: Dificil"
+                style="@style/cartas"                 android:text="Nivel: Dificil"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -165,7 +171,7 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -178,7 +184,7 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -195,7 +201,7 @@
                 android:gravity="left"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Nivel: Muy Dificil"
+                style="@style/cartas"                 android:text="Nivel: Muy Dificil"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -208,7 +214,7 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -221,9 +227,15 @@
                 android:gravity="right"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="Aca va el Historial"
+                style="@style/botones"                 android:text="Aca va el Historial"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
 
         </LinearLayout>
     </ScrollView>
