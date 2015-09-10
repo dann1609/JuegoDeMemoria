@@ -29,7 +29,8 @@ import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    Integer anterior = 0, codigo = 0, parejas = 0, wait = 0, start = 0, swdelay = 0, delay = 500, startdelay = 3000,
+    String text;
+    Integer lvl, anterior = 0, codigo = 0, parejas = 0, wait = 0, start = 0, swdelay = 0, delay = 500, startdelay = 3000,
             tage=0,totheight, totwidth, size, hmargin, wmargin, hnum=0, wnum=0;
     long startTime=0,elapsedTime=0;
     float puntos = 0, maxscore=10000, pluscore , lesscore;
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         setContentView(R.layout.activity_main);
         swstart = false;
+        Intent intent = getIntent();
+        lvl = intent.getIntExtra("Nivel",0);
+        Log.v("Desarrollo", "Nivel: "+lvl.toString());
+
         if (!swstart) {
             startCapture(MainActivity.this, ntype1);
         }
@@ -131,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         }
+        text=(String) t1.getText();
         elapsedTime = System.currentTimeMillis()-startTime;
         Log.v("Desarrollo", Long.toString(elapsedTime));
         savedInstanceState.putLong("elapsedTime", elapsedTime);
@@ -144,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         savedInstanceState.putInt("start", start);
         savedInstanceState.putInt("wait", wait);
         savedInstanceState.putInt("swdelay", swdelay);
+        savedInstanceState.putString("text",text);
 
 
 
@@ -155,10 +162,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
-
-
-
-
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         // Always call the superclass so it can restore the view hierarchy
@@ -178,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         wait=savedInstanceState.getInt("wait", wait);
         swdelay=savedInstanceState.getInt("swdelay", swdelay);
         elapsedTime=savedInstanceState.getLong("elapsedTime");
+        text=savedInstanceState.getString("text");
 
         t1 = (TextView) findViewById(R.id.t1);
         final ViewTreeObserver observer= t1.getViewTreeObserver();
@@ -253,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Log.v("Desarrollo", "Se disabledizo");
             }
         });
-        t1.setText(getString(R.string.onplayintext)+ parejas+"\n"+getString(R.string.score)+String.format("%.0f", puntos));
+        t1.setText(text);
         Log.v("Desarrollo", "Se recargo el texto");
 
 
@@ -267,8 +271,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -360,15 +362,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 }
             }
+            if(start.equals(1)){
             if (puntos>=0) {
                 t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
             } else {
                 t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + 0);
             }
-        }
+        }}
 
 
     }
+
     public void Iniciar(View view) {
         if ( wait.equals(1)){
             Log.v("Desarrollo", "Inicio");
@@ -419,6 +423,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
 
         }
+    }
+
+    public void Reiniciar(View view){
+        wait = 1;
+        start = 0;
+        swdelay = 0;
+        codigo=0;
+        anterior=0;
+        Iniciar(view);
+
     }
 
     public void Cuadrastilizar(){
@@ -477,12 +491,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         at=Math.sqrt(ax2 + ay2 + az2);
         Log.v("Desarrollo", Double.toString(at));
         if(at>=20){
-            wait = 1;
-            start = 0;
-            swdelay = 0;
-            codigo=0;
-            anterior=0;
-            Iniciar(findViewById(R.id.t1));
+            Reiniciar(findViewById(R.id.t1));
         }
 
     }
