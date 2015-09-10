@@ -11,17 +11,31 @@ import android.widget.TextView;
 
 public class MainActivity2Activity extends ActionBarActivity {
 
+    Integer[] juegos=new Integer[5];
+    Float[] puntaje=new Float[5];
+    TextView [] disp=new TextView[15];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity2);
 
         SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Integer juegos=sp.getInt("juegos", 0);
-        Float puntaje=sp.getFloat("mejorpuntaje", 0);
-        TextView disp=(TextView) findViewById(R.id.disp);
-        disp.setText("Numero de juegos: "+juegos.toString()+"\n Mejor Puntaje: "+String.format("%.0f", puntaje));
-
+        for(int i = 1; i <= 5; i++) {
+            juegos[i-1] = sp.getInt("juegos"+Integer.toString(i) ,0);
+            puntaje[i-1] = sp.getFloat("mejorpuntaje"+Integer.toString(i), 0);
+        }
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 2; j++) {
+                String res = "disp" + i+j;
+                Integer cod = getResources().getIdentifier(res, "id", getPackageName());
+                //Log.v("Desarrollo", cod.toString());
+                disp[(i-1)*2+j] = (TextView) findViewById(cod);
+            }
+        }
+        for (int i = 1; i <= 5; i++) {
+            disp[(i-1)*2+1].setText("Numero de juegos: " + juegos[i-1].toString());
+            disp[(i-1)*2+2].setText("Mejor Puntaje: " + String.format("%.0f", puntaje[i-1]));
+        }
     }
 
     @Override

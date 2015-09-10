@@ -2,20 +2,231 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_material_dark"
     android:orientation="vertical"
-    tools:context="com.ingdanielpadilla.juegodememoria.MainActivity2Activity"
-    android:background="@color/background_material_dark">
+    tools:context="com.ingdanielpadilla.juegodememoria.MainActivity2Activity">
 
-    <TextView android:text="@string/starttext"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/disp"
-        android:gravity="right"
-        android:textSize="26sp"
-        android:paddingRight="10sp"
-        android:paddingLeft="10sp"
-        android:textColor="@color/abc_primary_text_material_dark"
-        android:clickable="true" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Nivel: Muy Facil"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp11"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp12"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="left"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:text="Nivel: Facil"
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp21"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp22"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Nivel: Normal"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp31"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp32"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Nivel: Dificil"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp41"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp42"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Nivel: Muy Dificil"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp51"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/disp52"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="Aca va el Historial"
+                android:textColor="@color/abc_primary_text_material_dark"
+                android:textSize="26sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

@@ -4,5 +4,13 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
+    <style name="cartas" >
+        <item name="android:background">@drawable/cartas</item>
+        <item name="android:textColor">@drawable/texto_cartas</item>
+    </style>
+    <style name="botones" >
+        <item name="android:background">@drawable/botones</item>
+        <item name="android:textColor">@drawable/texto_cartas</item>
+    </style>
 
 </resources>

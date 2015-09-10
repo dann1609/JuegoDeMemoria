@@ -7,7 +7,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import android.os.Handler;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -52,11 +50,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
-        swstart = false;
         Intent intent = getIntent();
-        lvl = intent.getIntExtra("Nivel",0);
+        lvl = intent.getIntExtra("Nivel",3);
+
+        String res = "activity_main" + lvl;
+        Integer cod = getResources().getIdentifier(res, "layout", getPackageName());
+        setContentView(cod);
+
+        Log.v("Desarrollo f", "Nivel: " + cod.toString());
+        Log.v("Desarrollo f", "Nivel: "+R.layout.activity_main3);
+        swstart = false;
+
         Log.v("Desarrollo", "Nivel: "+lvl.toString());
 
         if (!swstart) {
@@ -150,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         savedInstanceState.putInt("start", start);
         savedInstanceState.putInt("wait", wait);
         savedInstanceState.putInt("swdelay", swdelay);
-        savedInstanceState.putString("text",text);
+        savedInstanceState.putString("text", text);
 
 
 
@@ -211,6 +215,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         Log.v("Desarrollo dead", Integer.toString(i));
                         Log.v("Desarrollo dead", Integer.toString(tage));
                         b[i].setText(tage.toString());
+                        if (codigo.equals(b[i].getId())||anterior.equals(b[i].getId())) {
+                            b[i].setSelected(true);
+                        }
                     }
                 }
 
@@ -239,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         public void run() {
                             for (int i = 1; i <= hnum*wnum; ++i) {
                                 b[i].setText("Logo");
+                                b[i].setSelected(false);
                             }
 
                             t1.setText(getString(R.string.onplayintext) + parejas);
@@ -296,6 +304,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             bi = (Button) view;
             codigo = bi.getId();
             Log.v("Desarrollo", "Se obtubo la referencia del boton");
+            bi.setSelected(true);
 
             if (!codigo.equals(anterior)) {
                 Log.v("Desarrollo", "es diferente del anterior");
@@ -308,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 } else {
                     Log.v("Desarrollo", "Si hubo anterior");
                     bf = (Button) findViewById(anterior);
-                    puntos = puntos + 1;
+                    bf.setSelected(true);
                     if (tag == (Integer) bf.getTag()) {
                         Log.v("Desarrollo", "hay coincidencia");
                         Toast.makeText(this, "Exelente", delay).show();
@@ -317,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         puntos = puntos + pluscore;
                         parejas = parejas + 1;
 
-                        if (parejas.equals(8)) {
+                        if (parejas.equals((hnum*wnum-(hnum*wnum)%2)/2)) {
                             Log.v("Desarrollo", "se acabo el juego");
                             wait = 1;
                             start = 0;
@@ -325,21 +334,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             t1.setText(getString(R.string.finishtext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
                             Integer juegos = 0;
                             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            juegos = sp.getInt("juegos", 0);
-                            Float mi = sp.getFloat("mejorpuntaje", 0);
+                            juegos = sp.getInt("juegos"+lvl.toString(), 0);
+                            Float mi = sp.getFloat("mejorpuntaje"+lvl.toString(), 0);
                             if (puntos > mi) {
                                 mi = puntos;
                             }
                             juegos = juegos + 1;
                             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                             SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putInt("juegos", juegos);
-                            editor.putFloat("mejorpuntaje", mi);
+                            editor.putInt("juegos"+lvl.toString(), juegos);
+                            editor.putFloat("mejorpuntaje" + lvl.toString(), mi);
                             editor.commit();
                             Log.d("TAG", juegos.toString());
+                            Log.d("TAG", Float.toString(puntos));
                         }
                         codigo = 0;
                         anterior = 0;
+                        bi.setSelected(false);
+                        bf.setSelected(false);
 
                     } else {
                         Log.v("Desarrollo", "no hay coincidencia");
@@ -353,6 +365,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                 wait = 0;
                                 codigo = 0;
                                 anterior = 0;
+                                bi.setSelected(false);
+                                bf.setSelected(false);
                             }
                         }, delay);
                         startTime = System.currentTimeMillis();
@@ -397,11 +411,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             for (int i = 2; i <= hnum*wnum+1; ++i) {
                 number.add(i / 2);
             }
+            if(((hnum * wnum)%2)==1){
+                Log.v("Desarrollo", "Se quito la imparidad: " + number.get((hnum*wnum)-1));
+                number.remove((hnum*wnum)-1);
+            }
             Collections.shuffle(number);
+            if(((hnum * wnum)%2)==1){
+                number.add(0);
+                Log.v("Desarrollo", "Se agrego la imparidad: " + number.get((hnum * wnum) - 1));
+            }
+            int j=0;
             for (int i = 1; i <= hnum*wnum; ++i) {
-                b[i].setTag(number.get(i - 1));
-                b[i].setText(number.get(i - 1).toString());
-                b[i].setEnabled(true);
+                if((((hnum * wnum)%2)==0)||(i!=(lvl*(lvl+1)/2+1+lvl/2))) {
+                    j=j+1;
+                    b[i].setTag(number.get(j - 1));
+                    b[i].setText(number.get(j - 1).toString());
+                    b[i].setEnabled(true);
+                }
+                else {b[i].setTag(0); b[i].setText("0");}
             }
             Toast.makeText(this, "Observa los numeros", startdelay).show();
             if (swdelay==0) {
@@ -410,7 +437,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 del.postDelayed(new Runnable() {
                     public void run() {
-                        for (int i = 1; i <= hnum*wnum; ++i) {
+                        for (int i = 1; i <= hnum * wnum; ++i) {
                             b[i].setText("Logo");
                         }
 
@@ -468,8 +495,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 b[(i-1)*wnum+j].setLayoutParams(params);
             }
         }
-        pluscore=2*maxscore/(hnum*wnum);
-        lesscore=2*pluscore/(hnum*wnum);
+        pluscore=2*maxscore/(hnum*wnum-(hnum*wnum)%2);
+        lesscore=2*pluscore/(hnum*wnum-(hnum*wnum)%2);
         Log.v("Desarrollo", "Finalizo Cuadrastilizar");
     }
 
