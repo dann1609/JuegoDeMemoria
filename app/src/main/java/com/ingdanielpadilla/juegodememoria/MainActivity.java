@@ -234,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             start = 1;
                             t1.setText(getString(R.string.onplayintext) + parejas);
                             wait = 0;
+                            swdelay=0;
 
 
                         }
@@ -463,6 +464,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         start = 1;
                         t1.setText(getString(R.string.onplayintext) + parejas);
                         wait = 0;
+                        swdelay=0;
                     }
                 }, startdelay);
                 startTime = System.currentTimeMillis();
@@ -474,7 +476,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void Reiniciar(View view){
         wait = 1;
         start = 0;
-        swdelay = 0;
         codigo=0;
         anterior=0;
         Iniciar(view);
