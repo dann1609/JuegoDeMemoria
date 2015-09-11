@@ -73,4 +73,10 @@ public class PrincipalActivity extends AppCompatActivity {
         Log.d("Desarrollo", "Se Inicio el Nivel: "+pickerlvl.getValue());
         startActivity(intent);
     }
+    public void AbrirHistorial(View view) {
+        Intent intent = new Intent(this, MainActivity2Activity.class);
+        intent.putExtra("hola", "hola");
+        Log.d("Desarrollo", "Se abrio el historial");
+        startActivity(intent);
+    }
 }

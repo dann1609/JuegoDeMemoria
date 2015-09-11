@@ -377,11 +377,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         Handler del = new Handler();
                         del.postDelayed(new Runnable() {
                             public void run() {
-                                bi.setText("Logo");
-                                bf.setText("Logo");
-                                wait = 0;
-                                codigo = 0;
-                                anterior = 0;
+                                if(start.equals(1)) {
+                                    bi.setText("Logo");
+                                    bf.setText("Logo");
+                                    wait = 0;
+                                    codigo = 0;
+                                    anterior = 0;
+                                }
                                 bi.setSelected(false);
                                 bf.setSelected(false);
                             }
