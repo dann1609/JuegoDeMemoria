@@ -423,6 +423,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     Integer cod = getResources().getIdentifier(res, "id", getPackageName());
                     //Log.v("Desarrollo", cod.toString());
                     b[(i-1)*wnum+j] = (Button) findViewById(cod);
+                    b[(i-1)*wnum+j].setSelected(false);
                 }
             }
 
