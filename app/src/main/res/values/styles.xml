@@ -3,6 +3,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <!-- Customize your theme here. -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:windowBackground">@color/textIcons</item>
 
     </style>
     <style name="cartas" >
@@ -13,5 +20,16 @@
         <item name="android:background">@drawable/botones</item>
         <item name="android:textColor">@drawable/texto_cartas</item>
     </style>
+
+    <style name="titulo">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/textIcons</item>
+</style>
+    <style name="pick">
+        <item name="android:background">@color/colorPrimaryLight</item>
+        <item name="android:textColor">@color/textIcons</item>
+    </style>
+
+
 
 </resources>

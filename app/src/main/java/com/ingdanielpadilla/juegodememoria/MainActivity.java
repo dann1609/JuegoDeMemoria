@@ -28,6 +28,7 @@ import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+    ScoreDAO mScoreDAO;
     String text;
     Integer lvl, anterior = 0, codigo = 0, parejas = 0, wait = 0, start = 0, swdelay = 0, delay = 500, startdelay = 3000,
             tage=0,totheight, totwidth, size, hmargin, wmargin, hnum=0, wnum=0;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mScoreDAO=new ScoreDAO(getApplicationContext());
+        Log.d("sql", ScoreDBHelper.SQL_CREATE_ENTIRES);
         Intent intent = getIntent();
         lvl = intent.getIntExtra("Nivel",3);
 
@@ -354,6 +357,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                             juegos = sp.getInt("juegos"+lvl.toString(), 0);
                             Float mi = sp.getFloat("mejorpuntaje"+lvl.toString(), 0);
+                            mScoreDAO.addEntry(lvl.toString(),"DAN",(int)(puntos));
+
                             if (puntos > mi) {
                                 mi = puntos;
                             }

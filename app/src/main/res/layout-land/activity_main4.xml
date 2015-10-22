@@ -3,11 +3,11 @@
     android:id="@+id/view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_material_dark"
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
     <LinearLayout
+        style="@style/titulo"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -45,6 +45,7 @@
 
 
             <TextView
+                style="@style/titulo"
                 android:id="@+id/t1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
