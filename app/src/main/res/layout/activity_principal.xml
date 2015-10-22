@@ -25,7 +25,8 @@
         android:id="@+id/pickerlvl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/pick">
+        style="@style/pick"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
     </NumberPicker>
             <TextView
                 android:layout_width="match_parent"

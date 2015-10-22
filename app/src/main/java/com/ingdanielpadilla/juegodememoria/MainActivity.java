@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                   if((Integer)b[i].getTag()!=null) {
                       Log.v("Desarrollo", b[i].getTag().toString());
                   }
-                    if(!b[i].isEnabled()){
+                    if(!b[i].isEnabled()&&((((hnum * wnum)%2)==0)||(i!=(lvl*(lvl+1)/2+1+lvl/2)))){
                         Integer tag;
                         tag = (Integer)b[i].getTag();
                         b[i].setText(tag.toString());

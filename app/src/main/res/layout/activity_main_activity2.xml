@@ -26,7 +26,7 @@
                     android:gravity="center"
                     android:paddingLeft="10sp"
                     android:paddingRight="10sp"
-                    style="@style/cartas"                 android:text="Nivel: Muy Facil"
+                    style="@style/titulo"                 android:text="Nivel: Muy Facil"
                     android:textColor="@color/abc_primary_text_material_dark"
                     android:textSize="26sp" />
                 <ListView
@@ -49,7 +49,7 @@
                 android:gravity="center"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                style="@style/cartas"                 android:text="Nivel: Facil"
+                style="@style/titulo"                 android:text="Nivel: Facil"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
@@ -72,7 +72,7 @@
                 android:gravity="center"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                style="@style/cartas"                 android:text="Nivel: Normal"
+                style="@style/titulo"                 android:text="Nivel: Normal"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
             <ListView
@@ -93,7 +93,7 @@
                 android:gravity="center"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                style="@style/cartas"                 android:text="Nivel: Dificil"
+                style="@style/titulo"                 android:text="Nivel: Dificil"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
             <ListView
@@ -114,7 +114,7 @@
                 android:gravity="center"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                style="@style/cartas"                 android:text="Nivel: Muy Dificil"
+                style="@style/titulo"                 android:text="Nivel: Muy Dificil"
                 android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
             <ListView
