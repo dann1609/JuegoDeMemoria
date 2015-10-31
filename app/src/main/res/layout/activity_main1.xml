@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,6 +17,7 @@
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
         android:text="@string/starttext"
+        android:textColor="@color/abc_primary_text_material_dark"
         android:textSize="26sp" />
 
     <LinearLayout
@@ -53,6 +53,15 @@
                 android:onClick="VolteaBoton"
                 android:text="Logo" />
 
+            <Button
+                android:id="@+id/b13"
+                style="@style/cartas"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="VolteaBoton"
+                android:text="Logo" />
+
 
         </LinearLayout>
 
@@ -79,6 +88,53 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="VolteaBoton"
+                android:text="Logo"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/b23"
+                style="@style/cartas"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="VolteaBoton"
+                android:text="Logo" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/b31"
+                style="@style/cartas"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="VolteaBoton"
+                android:text="Logo" />
+
+            <Button
+                android:id="@+id/b32"
+                style="@style/cartas"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="VolteaBoton"
+                android:text="Logo" />
+
+            <Button
+                android:id="@+id/b33"
+                style="@style/cartas"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="VolteaBoton"
                 android:text="Logo" />
 
 
@@ -90,7 +146,6 @@
     </LinearLayout>
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.8">
@@ -100,7 +155,7 @@
             android:layout_height="wrap_content"
             android:onClick="AbrirHistorial"
             style="@style/botones"
-            android:text="Historial"/>
+            android:text="Historial" />
 
         <TextView
             android:layout_width="0dp"

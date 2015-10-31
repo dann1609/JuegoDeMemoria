@@ -56,6 +56,7 @@
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
                 android:text="@string/starttext"
+                android:textColor="@color/abc_primary_text_material_dark"
                 android:textSize="26sp" />
 
         </LinearLayout>
@@ -93,6 +94,15 @@
                     android:onClick="VolteaBoton"
                     android:text="Logo" />
 
+                <Button
+                    android:id="@+id/b13"
+                    style="@style/cartas"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="VolteaBoton"
+                    android:text="Logo" />
+
 
             </LinearLayout>
 
@@ -114,6 +124,53 @@
 
                 <Button
                     android:id="@+id/b22"
+                    style="@style/cartas"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="VolteaBoton"
+                    android:text="Logo"
+                    android:enabled="false"/>
+
+                <Button
+                    android:id="@+id/b23"
+                    style="@style/cartas"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="VolteaBoton"
+                    android:text="Logo" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/b31"
+                    style="@style/cartas"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="VolteaBoton"
+                    android:text="Logo" />
+
+                <Button
+                    android:id="@+id/b32"
+                    style="@style/cartas"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="VolteaBoton"
+                    android:text="Logo" />
+
+                <Button
+                    android:id="@+id/b33"
                     style="@style/cartas"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

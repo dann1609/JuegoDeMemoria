@@ -2,26 +2,37 @@ package com.ingdanielpadilla.juegodememoria;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.NumberPicker;
 
-public class PrincipalActivity extends AppCompatActivity {
+public class PrincipalActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener{
 
-    String[] niveles={"Muy Facil","Facil","Normal","Dificil","Muy Dificil"};
+    String[] niveles={"Facil","Medio","Dificil"};
     NumberPicker pickerlvl;
+    DrawerLayout mDrawerLayout;
+    Integer mSelectedId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+        mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+        NavigationView mNavigationView =(NavigationView)findViewById(R.id.main_drawer);
+        mNavigationView.setNavigationItemSelectedListener(this);
+
         pickerlvl= (NumberPicker) findViewById(R.id.pickerlvl);
-        pickerlvl.setMaxValue(5);
+        pickerlvl.setValue(2);
+        pickerlvl.setMaxValue(3);
         pickerlvl.setMinValue(1);
         pickerlvl.setWrapSelectorWheel(false);
         pickerlvl.setDisplayedValues(niveles);
@@ -78,5 +89,26 @@ public class PrincipalActivity extends AppCompatActivity {
         intent.putExtra("hola", "hola");
         Log.d("Desarrollo", "Se abrio el historial");
         startActivity(intent);
+    }
+
+    public void openDrawer(View view) {
+
+        mDrawerLayout.openDrawer(Gravity.LEFT);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        menuItem.setChecked(true);
+        mSelectedId = menuItem.getItemId();
+        navigate(mSelectedId);
+        return true;
+    }
+    private void navigate(int selected){
+        Intent intent=null;
+        if(selected == R.id.navigation_item_3){
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            intent = new Intent(this,MainActivity2Activity.class);
+            startActivity(intent);
+        }
     }
 }

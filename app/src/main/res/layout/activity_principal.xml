@@ -1,64 +1,22 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    tools:context=".PrincipalActivity">
 
-    tools:context="com.ingdanielpadilla.juegodememoria.PrincipalActivity">
+    <include layout="@layout/content_principal" />
 
 
-    <TextView
-        style="@style/titulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Principal_text"
-        android:textColor="@color/abc_primary_text_material_dark"
-        android:textSize="26sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-    <NumberPicker
-        android:id="@+id/pickerlvl"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/main_drawer"
+        android:layout_gravity="start"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/pick"
-        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
-    </NumberPicker>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="Empezar"
-                    android:text="Empezar"
-                    android:textSize="26sp"
-                    style="@style/botones"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="AbrirHistorial"
-                    style="@style/botones"
-                    android:textSize="26sp"
-                    android:text="Historial" />
-
-            </LinearLayout>
-
-
-
-
-</LinearLayout>
+        android:layout_height="match_parent"
+        app:menu="@menu/menu_drawer"
+        app:headerLayout="@layout/drawer_header"
+        app:itemIconTint="@color/colorAccent"
+        app:itemTextColor="@color/textColorSecondary"/>
+</android.support.v4.widget.DrawerLayout>

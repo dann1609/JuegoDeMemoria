@@ -1,6 +1,8 @@
 package com.ingdanielpadilla.juegodememoria;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -9,6 +11,11 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,7 +23,11 @@ public class MainActivity2Activity extends ActionBarActivity {
 
     private ListView mListView1,mListView2,mListView3,mListView4,mListView5;
     private static final String TAG = "AndroidDataBase";
+    private List<ParseObject> ob;
     ScoreDAO mScoreDAO;
+    ProgressDialog pDialog;
+
+    ArrayList values;
 
     Integer[] juegos=new Integer[5];
     Float[] puntaje=new Float[5];
@@ -30,27 +41,55 @@ public class MainActivity2Activity extends ActionBarActivity {
         List<String> entries1=mScoreDAO.getAllEntries(1);
         List<String> entries2=mScoreDAO.getAllEntries(2);
         List<String> entries3=mScoreDAO.getAllEntries(3);
-        List<String> entries4=mScoreDAO.getAllEntries(4);
-        List<String> entries5=mScoreDAO.getAllEntries(5);
+
+
 
 
         mListView1=(ListView)findViewById(R.id.list_item1);
         mListView2=(ListView)findViewById(R.id.list_item2);
         mListView3=(ListView)findViewById(R.id.list_item3);
-        mListView4=(ListView)findViewById(R.id.list_item4);
-        mListView5=(ListView)findViewById(R.id.list_item5);
+
         CustomAdapter adapter1=new CustomAdapter(this,entries1);
         CustomAdapter adapter2=new CustomAdapter(this,entries2);
         CustomAdapter adapter3=new CustomAdapter(this,entries3);
-        CustomAdapter adapter4=new CustomAdapter(this,entries4);
-        CustomAdapter adapter5=new CustomAdapter(this,entries5);
         mListView1.setAdapter(adapter1);
         mListView2.setAdapter(adapter2);
         mListView3.setAdapter(adapter3);
-        mListView4.setAdapter(adapter4);
-        mListView5.setAdapter(adapter5);
 
 
+    }
+
+    private class GetData extends AsyncTask<Void,Void,Void>{
+
+        protected void onPreExcute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(MainActivity2Activity.this);
+            pDialog.setTitle("Cargando datos de parse");
+            pDialog.setMessage("Loading...");
+            pDialog.setIndeterminate(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            values = new ArrayList<String>();
+            try{
+                ParseQuery<ParseObject> query= new ParseQuery<ParseObject>("Data Entry");
+                ob=query.find();
+                for(ParseObject dato : ob){
+                    values.add(dato.get("name")+" "+dato.get("puntos")+" "+dato.get("nivel"));
+                }
+
+
+            }catch (ParseException e){
+                Log.e("Error", e.getMessage()); e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExcecute(Void result){
+            Log.d("a ver",values.get(1).toString());
+        }
     }
 
     @Override

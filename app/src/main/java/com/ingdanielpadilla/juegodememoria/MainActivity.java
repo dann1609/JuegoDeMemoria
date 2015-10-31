@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     ScoreDAO mScoreDAO;
     String text;
-    Integer lvl, anterior = 0, codigo = 0, parejas = 0, wait = 0, start = 0, swdelay = 0, delay = 500, startdelay = 3000,
+    Integer lvl,nivel, anterior = 0, codigo = 0, parejas = 0, wait = 0, start = 0, swdelay = 0, delay = 500, startdelay = 3000,
             tage=0,totheight, totwidth, size, hmargin, wmargin, hnum=0, wnum=0;
     long startTime=0,elapsedTime=0;
     float puntos = 0, maxscore=10000, pluscore , lesscore;
@@ -55,17 +55,30 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mScoreDAO=new ScoreDAO(getApplicationContext());
         Log.d("sql", ScoreDBHelper.SQL_CREATE_ENTIRES);
         Intent intent = getIntent();
-        lvl = intent.getIntExtra("Nivel",3);
+        nivel = intent.getIntExtra("Nivel",2);
+        switch (nivel) {
+            case 1:
+                lvl=2;
+                break;
+            case 2:
+                lvl=3;
+                break;
+            case 3:
+                lvl=3;
+                break;
 
-        String res = "activity_main" + lvl;
+        }
+
+
+        String res = "activity_main" + nivel;
         Integer cod = getResources().getIdentifier(res, "layout", getPackageName());
         setContentView(cod);
 
         Log.v("Desarrollo f", "Nivel: " + cod.toString());
-        Log.v("Desarrollo f", "Nivel: "+R.layout.activity_main3);
+        Log.v("Desarrollo f", "Nivel: "+R.layout.activity_main2);
         swstart = false;
 
-        Log.v("Desarrollo", "Nivel: "+lvl.toString());
+        Log.v("Desarrollo", "Nivel: " + nivel.toString());
 
         if (!swstart) {
             startCapture(MainActivity.this, ntype1);
@@ -339,12 +352,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     Log.v("Desarrollo", "Si hubo anterior");
                     bf = (Button) findViewById(anterior);
                     bf.setSelected(true);
+                    puntos=puntos+1;
                     if (tag == (Integer) bf.getTag()) {
                         Log.v("Desarrollo", "hay coincidencia");
                         Toast.makeText(this, "Exelente", delay).show();
                         bi.setEnabled(false);
                         bf.setEnabled(false);
-                        puntos = puntos + pluscore;
+
                         parejas = parejas + 1;
 
                         if (parejas.equals((hnum*wnum-(hnum*wnum)%2)/2)) {
@@ -355,9 +369,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             t1.setText(getString(R.string.finishtext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
                             Integer juegos = 0;
                             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            juegos = sp.getInt("juegos"+lvl.toString(), 0);
-                            Float mi = sp.getFloat("mejorpuntaje"+lvl.toString(), 0);
-                            mScoreDAO.addEntry(lvl.toString(),"DAN",(int)(puntos));
+                            juegos = sp.getInt("juegos"+nivel.toString(), 0);
+                            Float mi = sp.getFloat("mejorpuntaje"+nivel.toString(), 0);
+                            mScoreDAO.addEntry(nivel.toString(),"DAN",(int)(puntos));
 
                             if (puntos > mi) {
                                 mi = puntos;
@@ -365,8 +379,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             juegos = juegos + 1;
                             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                             SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putInt("juegos"+lvl.toString(), juegos);
-                            editor.putFloat("mejorpuntaje" + lvl.toString(), mi);
+                            editor.putInt("juegos"+nivel.toString(), juegos);
+                            editor.putFloat("mejorpuntaje" + nivel.toString(), mi);
                             editor.commit();
                             Log.d("TAG", juegos.toString());
                             Log.d("TAG", Float.toString(puntos));
@@ -378,7 +392,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                     } else {
                         Log.v("Desarrollo", "no hay coincidencia");
-                        puntos = puntos - lesscore;
                         wait = 1;
                         Handler del = new Handler();
                         del.postDelayed(new Runnable() {
