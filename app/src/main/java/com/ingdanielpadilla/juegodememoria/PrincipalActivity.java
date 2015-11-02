@@ -107,7 +107,7 @@ public class PrincipalActivity extends AppCompatActivity implements  NavigationV
         Intent intent=null;
         if(selected == R.id.navigation_item_3){
             mDrawerLayout.closeDrawer(GravityCompat.START);
-            intent = new Intent(this,MainActivity2Activity.class);
+            intent = new Intent(this,HistorialActivity.class);
             startActivity(intent);
         }
     }

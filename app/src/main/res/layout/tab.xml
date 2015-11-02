@@ -4,24 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <TextView
-        android:id="@+id/dispres"
-        style="@style/botones"
+        style="@style/titulo"
+        android:id="@+id/subtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:gravity="right"
+        android:gravity="center"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
-        android:text="Aca va el Historial"
         android:textColor="@color/abc_primary_text_material_dark"
         android:textSize="26sp" />
 
-    <TextView
+    <ListView
+        android:id="@+id/list_item"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"></ListView>
 
 </LinearLayout>

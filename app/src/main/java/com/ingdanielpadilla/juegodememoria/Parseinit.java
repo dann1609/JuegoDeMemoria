@@ -13,6 +13,6 @@ public class Parseinit extends Application{
     public void onCreate() {
         super.onCreate();
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "XYbFuSLcnz3Ro5eVn2QJzvdLvmgquoFDArBfUb4N", "4S9QKHzcznA5LtoVVq11dlFE0GAHzacqYnvMCuHi");
+        Parse.initialize(this, "izD9VtSH1ueVfWX0y8Eycy4nW88Caml9LKqtKaAd", "wfxY8I330MmaPPZVr86iUpFohJ6QUyuVdY3jhKwr");
     }
 }
