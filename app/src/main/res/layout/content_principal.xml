@@ -16,50 +16,71 @@
         android:text="@string/Principal_text"
         android:textColor="@color/abc_primary_text_material_dark"
         android:textSize="26sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <NumberPicker
         android:id="@+id/pickerlvl"
+        style="@style/pick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/pick"
-        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
-        android:onClick="Empezar"
         android:clickable="true"
-        >
-    </NumberPicker>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="bottom">
+        android:onClick="Empezar"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"></NumberPicker>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
 
 
-                <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-                    android:src="@drawable/ic_menu"
-                    android:onClick="openDrawer"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-                <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-                    android:src="@drawable/ic_menu"
-                    android:onClick="Empezar"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="openDrawer"
+            android:src="@drawable/ic_menu" />
 
-            </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="Login"
+            android:src="@drawable/ic_menu" />
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="Empezar"
+            android:src="@drawable/ic_menu" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

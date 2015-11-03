@@ -31,12 +31,13 @@ public class ScoreDAO {
         mDatabase = mDbHelper.getWritableDatabase();
     }
 
-    public Long addEntry(String s, String s1,Integer s2){
+    public Long addEntry(String s, String s1,Integer s2,String s3){
         Long index;
         ContentValues values= new ContentValues();
         values.put(MainScore.ScoreEntry.COLUMN_NAME_LEVEL,s);
         values.put(MainScore.ScoreEntry.COLUMN_NAME_NAME,s1);
         values.put(MainScore.ScoreEntry.COLUMN_NAME_POINTS,s2);
+        values.put(MainScore.ScoreEntry.COLUMN_NAME_APP,s3);
 
         index= mDatabase.insert(MainScore.ScoreEntry.TABLE_NAME,null,values);
 
@@ -47,11 +48,11 @@ public class ScoreDAO {
     public List<String> getAllEntries(int lvl){
         Log.d(TAG, "getAllEntries");
         List<String> entryList = new ArrayList<String>();
-        String selectQuery="SELECT * FROM "+MainScore.ScoreEntry.TABLE_NAME+" WHERE "+MainScore.ScoreEntry.COLUMN_NAME_LEVEL+"="+lvl+" ORDER BY "+MainScore.ScoreEntry.COLUMN_NAME_POINTS+" DESC LIMIT 3";
+        String selectQuery="SELECT * FROM "+MainScore.ScoreEntry.TABLE_NAME+" WHERE "+MainScore.ScoreEntry.COLUMN_NAME_LEVEL+"="+lvl+" ORDER BY "+MainScore.ScoreEntry.COLUMN_NAME_POINTS+" ASC LIMIT 3";
         Cursor cursor=mDatabase.rawQuery(selectQuery,null);
         if(cursor.moveToFirst()){
             do{
-                String entry=" Name "+cursor.getString(1)+"\nscore "+cursor.getString(2);
+                String entry="Aplicacion: "+cursor.getString(3)+"\nName: "+cursor.getString(1)+"\nscore: "+cursor.getString(2);
                 entryList.add(entry);
             }while(cursor.moveToNext());
         }

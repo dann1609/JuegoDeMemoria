@@ -16,4 +16,6 @@
     <string name="navigation_item_4">navigation_item_4</string>
     <string name="title_activity_historial">HistorialActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="signin">Guardar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

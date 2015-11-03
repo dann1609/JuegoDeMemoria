@@ -13,5 +13,6 @@ public class MainScore {
         public static final String COLUMN_NAME_LEVEL = "level";
         public static final String COLUMN_NAME_NAME = "name";
         public static final String COLUMN_NAME_POINTS = "score";
+        public static final String COLUMN_NAME_APP = "ingdanielpadilla";
     }
 }

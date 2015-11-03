@@ -23,7 +23,8 @@ public class ScoreDBHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + MainScore.ScoreEntry.TABLE_NAME + " (" +
                     MainScore.ScoreEntry.COLUMN_NAME_LEVEL + TEXT_TYPE + COMMA_SEP +
                     MainScore.ScoreEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    MainScore.ScoreEntry.COLUMN_NAME_POINTS + INTEGER_TYPE +
+                    MainScore.ScoreEntry.COLUMN_NAME_POINTS + INTEGER_TYPE +COMMA_SEP+
+                    MainScore.ScoreEntry.COLUMN_NAME_APP + TEXT_TYPE +
                     " )";
 
     private static final String SQL_DELETE_ENTRIES=

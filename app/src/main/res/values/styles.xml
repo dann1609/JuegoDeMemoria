@@ -20,7 +20,14 @@
         <item name="android:background">@drawable/botones</item>
         <item name="android:textColor">@drawable/texto_cartas</item>
     </style>
+    <style name="tabTheme" parent="AppTheme">
+        <item name="android:tabWidgetStyle">@style/TabWidget</item>
+    </style>
 
+    <style name="TabWidget">
+        <item name="android:tabStripEnabled">false</item>
+
+    </style>
     <style name="titulo">
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/textIcons</item>

@@ -1,43 +1,113 @@
 package com.ingdanielpadilla.juegodememoria;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.NumberPicker;
+import android.widget.TextView;
+
+import static com.ingdanielpadilla.juegodememoria.R.id;
+import static com.ingdanielpadilla.juegodememoria.R.layout;
 
 public class PrincipalActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener{
 
     String[] niveles={"Facil","Medio","Dificil"};
     NumberPicker pickerlvl;
     DrawerLayout mDrawerLayout;
-    Integer mSelectedId;
+    Integer mSelectedId,cod;
+    String USERNAME;
+    Dialog dialog = null;
+    String inicial="";
+    String res = "ic_";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+        setContentView(layout.activity_principal);
 
-        mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-        NavigationView mNavigationView =(NavigationView)findViewById(R.id.main_drawer);
+        mDrawerLayout=(DrawerLayout)findViewById(id.drawer_layout);
+        NavigationView mNavigationView =(NavigationView)findViewById(id.main_drawer);
         mNavigationView.setNavigationItemSelectedListener(this);
 
-        pickerlvl= (NumberPicker) findViewById(R.id.pickerlvl);
+        pickerlvl= (NumberPicker) findViewById(id.pickerlvl);
         pickerlvl.setValue(2);
         pickerlvl.setMaxValue(3);
         pickerlvl.setMinValue(1);
         pickerlvl.setWrapSelectorWheel(false);
         pickerlvl.setDisplayedValues(niveles);
         pickerlvl.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        USERNAME=sp.getString("usuario","");
+        establecerUsuario(USERNAME);
+
     }
+
+    public void Login(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        builder.setTitle("Registra tu nombre");
+        builder.setView(inflater.inflate(layout.dialog_signin, null));
+        builder.setNegativeButton("Ahora no", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                return;
+            }
+        });
+        builder = builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                TextView user=(TextView)dialog.findViewById(id.username);
+                String tuser=user.getText().toString();
+                establecerUsuario(tuser);
+
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("usuario", user.getText().toString());
+                editor.commit();
+                return;
+            }
+        });
+        dialog = builder.create();
+
+        dialog.show();
+
+    }
+
+    public void establecerUsuario(String tuser){
+        FloatingActionButton f=(FloatingActionButton)findViewById(id.fab2);
+        res="ic_";
+        if(tuser.length()!=0)
+        {
+            inicial=tuser.substring(0,1);
+            res=res+inicial.toLowerCase();
+            cod = getResources().getIdentifier(res, "drawable", getPackageName());
+
+        }else{
+            res=res+"who";
+            cod = getResources().getIdentifier(res, "drawable", getPackageName());
+        }
+        f.setImageResource(cod);
+
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,7 +175,7 @@ public class PrincipalActivity extends AppCompatActivity implements  NavigationV
     }
     private void navigate(int selected){
         Intent intent=null;
-        if(selected == R.id.navigation_item_3){
+        if(selected == id.navigation_item_3){
             mDrawerLayout.closeDrawer(GravityCompat.START);
             intent = new Intent(this,HistorialActivity.class);
             startActivity(intent);

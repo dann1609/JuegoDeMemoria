@@ -125,6 +125,7 @@ public class HistorialActivity extends AppCompatActivity {
             try{
                 ParseQuery<ParseObject> query= new ParseQuery<ParseObject>("memoria");
                 ob= query.find();
+
                 values1.clear();
                 values2.clear();
                 values3.clear();
@@ -277,13 +278,16 @@ public class HistorialActivity extends AppCompatActivity {
 
             tabHost= (FragmentTabHost) rootView.findViewById(android.R.id.tabhost);
             tabHost.setup(getContext(),
-                    getChildFragmentManager(),android.R.id.tabcontent);
+                    getChildFragmentManager(), android.R.id.tabcontent);
             tabHost.addTab(tabHost.newTabSpec("FACIL").setIndicator("FACIL"),
                     Tab1.class, getArguments());
             tabHost.addTab(tabHost.newTabSpec("MEDIO").setIndicator("MEDIO"),
                     Tab1.class, getArguments());
             tabHost.addTab(tabHost.newTabSpec("DIFICIL").setIndicator("DIFICIL"),
                     Tab1.class, getArguments());
+
+            //tabHost.getTabWidget().getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
             return rootView;
         }
 

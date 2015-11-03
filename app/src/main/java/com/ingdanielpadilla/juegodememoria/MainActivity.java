@@ -8,9 +8,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,10 +20,11 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
 
+import com.parse.ParseObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,11 +32,11 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     ScoreDAO mScoreDAO;
-    String text;
-    Integer lvl,nivel, anterior = 0, codigo = 0, parejas = 0, wait = 0, start = 0, swdelay = 0, delay = 500, startdelay = 3000,
+    String text,USERNAME="DAN";
+    Integer lvl,nivel,puntos = 0, anterior = 0, codigo = 0, parejas = 0, wait = 0, start = 0, swdelay = 0, delay = 500, startdelay = 3000,
             tage=0,totheight, totwidth, size, hmargin, wmargin, hnum=0, wnum=0;
     long startTime=0,elapsedTime=0;
-    float puntos = 0, maxscore=10000, pluscore , lesscore;
+    float  maxscore=10000, pluscore , lesscore;
     double ax2,ay2,az2,at;
     Button bi, bf;
     Button[] b=new Button[99];
@@ -167,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         savedInstanceState.putInt("anterior", anterior);
         savedInstanceState.putInt("codigo", codigo);
         savedInstanceState.putInt("parejas", parejas);
-        savedInstanceState.putFloat("puntos", puntos);
+        savedInstanceState.putInt("puntos", puntos);
         savedInstanceState.putInt("start", start);
         savedInstanceState.putInt("wait", wait);
         savedInstanceState.putInt("swdelay", swdelay);
@@ -197,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         anterior=savedInstanceState.getInt("anterior", anterior);
         codigo=savedInstanceState.getInt("codigo", codigo);
         parejas=savedInstanceState.getInt("parejas", parejas);
-        puntos=savedInstanceState.getFloat("puntos", puntos);
+        puntos=savedInstanceState.getInt("puntos", puntos);
         start=savedInstanceState.getInt("start", start);
         wait=savedInstanceState.getInt("wait", wait);
         swdelay=savedInstanceState.getInt("swdelay", swdelay);
@@ -366,13 +369,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             wait = 1;
                             start = 0;
                             swdelay = 0;
-                            t1.setText(getString(R.string.finishtext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
+                            t1.setText(getString(R.string.finishtext) + parejas + "\n" + getString(R.string.score) +  puntos);
                             Integer juegos = 0;
                             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                             juegos = sp.getInt("juegos"+nivel.toString(), 0);
-                            Float mi = sp.getFloat("mejorpuntaje"+nivel.toString(), 0);
-                            mScoreDAO.addEntry(nivel.toString(),"DAN",(int)(puntos));
-
+                            Integer mi = sp.getInt("mejorpuntaje" + nivel.toString(), 0);
+                            USERNAME=sp.getString("usuario","Invitado");
+                            mScoreDAO.addEntry(nivel.toString(),USERNAME,(int)(puntos),"ingdanielp");
+                            new SendData().execute();
                             if (puntos > mi) {
                                 mi = puntos;
                             }
@@ -380,10 +384,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putInt("juegos"+nivel.toString(), juegos);
-                            editor.putFloat("mejorpuntaje" + nivel.toString(), mi);
+                            editor.putInt("mejorpuntaje" + nivel.toString(), mi);
                             editor.commit();
                             Log.d("TAG", juegos.toString());
-                            Log.d("TAG", Float.toString(puntos));
+                            Log.d("TAG", Integer.toString(puntos));
                         }
                         codigo = 0;
                         anterior = 0;
@@ -416,7 +420,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
             if(start.equals(1)){
             if (puntos>=0) {
-                t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + String.format("%.0f", puntos));
+                t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + puntos);
             } else {
                 t1.setText(getString(R.string.onplayintext) + parejas + "\n" + getString(R.string.score) + 0);
             }
@@ -565,5 +569,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+    private class SendData extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String tnivel;
+
+            switch(nivel){
+
+                case 1:
+                    tnivel="Facil";
+                    break;
+                case 2:
+                    tnivel="Medio";
+                    break;
+                case 3:
+                    tnivel="Dificil";
+                    break;
+                default:
+                    tnivel="";
+                    break;
+            }
+            ParseObject testObject = new ParseObject("memoria");
+            testObject.put("idname","ingdanielp");
+            testObject.put("name",USERNAME);
+            testObject.put("nivel", tnivel);
+            testObject.put("puntos", Integer.toString(puntos));
+            testObject.saveInBackground();
+            return null;
+        }
     }
 }
