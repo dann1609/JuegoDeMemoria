@@ -184,24 +184,28 @@
         android:layout_height="0dp"
         android:layout_weight="0.8">
 
-        <Button
+        <android.support.design.widget.FloatingActionButton
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="AbrirHistorial"
-            style="@style/botones"
-            android:text="Historial" />
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/ic_historial"
+            android:onClick="AbrirHistorial"/>
+
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <Button
+        <android.support.design.widget.FloatingActionButton
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="Reiniciar"
-            style="@style/botones"
-            android:text="Reiniciar" />
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/ic_reiniciar"
+            android:onClick="Reiniciar"/>
+
     </LinearLayout>
 
 </LinearLayout>

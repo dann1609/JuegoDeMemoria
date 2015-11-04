@@ -544,7 +544,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void AbrirHistorial(View view) {
-        Intent intent = new Intent(this, MainActivity2Activity.class);
+        Intent intent = new Intent(this, HistorialActivity.class);
         intent.putExtra("hola", "hola");
         Log.d("Desarrollo", "Se abrio el historial");
         startActivity(intent);

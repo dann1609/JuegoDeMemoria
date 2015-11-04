@@ -78,7 +78,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:onClick="Empezar"
-            android:src="@drawable/ic_menu" />
+            android:src="@drawable/ic_play" />
 
     </LinearLayout>
 
